@@ -1,3 +1,4 @@
+
 b = str(input())
 a = b[::-1]
 if b == a:
