@@ -6,6 +6,10 @@ def strcounter(s, str):
     print(syms_counter)
 
 <<<<<<< HEAD:main.py
+<<<<<<< HEAD:main.py
+=======
+#456456465456
+>>>>>>> 9363314ae0c9ca40639672ed7c4666b05c45d464:maximum/lesson_1/main.py
 =======
 #456456465456
 >>>>>>> 9363314ae0c9ca40639672ed7c4666b05c45d464:maximum/lesson_1/main.py
