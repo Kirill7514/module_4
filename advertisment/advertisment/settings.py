@@ -81,7 +81,30 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+#   DATABASES = {
+#   'default': {
+#   'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#   'NAME': 'dbname',
+#   'USER': 'username',
+#   'PASSWORD': 'userpass',
+#   'HOST': '127.0.0.1',
+#   'PORT': '5432'
+#   }
+#   }
 
+#  NAME - имя базы данных.
+#  USER - пользователь БД.
+#  PASSWORD - пароль пользователя.
+#  HOST - 127.0.0.1 или localhost.
+#  PORT - 5432.
+
+# Далее нам понадобится установить модуль psycopg2 для работы с PostgreSQL
+# pip install psycopg2
+
+# Осталось выполнить миграции
+#  python manage.py makemigrations
+#  python manage.py migrate
+#
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
