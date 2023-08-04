@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-
+from .models import Advertisement
 
 
 
@@ -8,6 +8,8 @@ from django.http import HttpResponse
 
 
 def index(request):
+    adv = Advertisement(title = f"Обьявление views", text = "кто-то перешел в index.html", price = 100, user = "admin")
+    adv.save()
     return render(request, 'index.html')
 
 def top_sellers(request):
