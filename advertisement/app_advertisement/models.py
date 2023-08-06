@@ -1,16 +1,40 @@
 from django.db import models
-from django.db import migrations
-
+from django.contrib import admin
+from django.utils import timezone, html
 
 # Create your models here.
-class Advertisement(models.Model):
-    title = models.CharField("Заголовок", max_length=128)
-    text = models.TextField("текст")
-    price = models.FloatField("цена")
-    user = models.CharField("пользователь", max_length=128)
-    date = models.DateField("дата", auto_now_add=True)
-    class Meta:
-        db_table = 'advertisements'
-    def __str__(self):
-        return f'<Advertisement: Advertisement(id={self.id}, title={self.title}, price={self.price})>'
 
+class Advertisement(models.Model): # это класс-модель
+    # он реализует таблицу Advertisement
+    title = models.CharField("заголовок", max_length=128)
+    text = models.TextField("описание")
+    author = models.CharField("автор", max_length=64)
+    price = models.FloatField("цена")
+    auction = models.BooleanField("торг", default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
+
+
+    @admin.display(description="дата создания")
+    def handle_date(self):
+        if self.created_at.date() == timezone.now().date():
+            create_time = self.created_at.time().strftime('%H:%M:%S')
+            return html.format_html(
+                '<span style ="color: green; font-weight= bold;">Сегодня в {}</span>', create_time
+            )
+        return self.created_at.strftime('%d.%m.%Y at %H:%M:%S')
+
+    @admin.display(description="дата создания")
+    def update_date(self):
+
+        if self.update_at.date() == timezone.now().date():
+            update_time = self.update_at.time().strftime('%H:%M:%S')
+            return html.format_html(
+                '<span style ="color: green; font-weight= bold;">Сегодня в {}</span>', update_time
+            )
+        return self.created_at.strftime('%d.%m.%Y at %H:%M:%S')
+
+       
+    def __str__(self):
+        return f"title: {self.title}, text: {self.text}"
+        
