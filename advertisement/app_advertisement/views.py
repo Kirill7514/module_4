@@ -5,8 +5,9 @@ from .models import Advertisement
 # Create your views here.
 
 def index(request):
-
-    return render(request, 'index.html')
+    advertisement: list[Advertisement] = Advertisement.objects.all()
+    context = {"advertisements": advertisement}
+    return render(request, 'index.html', context)
 
 def top_sellers(request):
     return render(request, 'top-sellers.html')

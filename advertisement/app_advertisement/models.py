@@ -1,18 +1,24 @@
 from django.db import models
 from django.contrib import admin
 from django.utils import timezone, html
-
+from django.contrib.auth import get_user_model
 # Create your models here.
+
+User = get_user_model()
+
+
 
 class Advertisement(models.Model): # это класс-модель
     # он реализует таблицу Advertisement
     title = models.CharField("заголовок", max_length=128)
     text = models.TextField("описание")
-    author = models.CharField("автор", max_length=64)
     price = models.FloatField("цена")
     auction = models.BooleanField("торг", default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
+    image = models.ImageField("изображение", upload_to='media/')
+
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
     @admin.display(description="дата создания")
@@ -34,6 +40,16 @@ class Advertisement(models.Model): # это класс-модель
             )
         return self.created_at.strftime('%d.%m.%Y at %H:%M:%S')
 
+    @admin.display(description="фото")
+    def photo(self):
+        if self.image:
+            return html.format_html(
+                "<img src = '{}' width = '100px' heigth = '100px' > ",
+                self.image.url
+            )
+        return html.format_html(
+            "<img src = 'http://127.0.0.1:8000/media/image.jpg' width = '100px' heigth = '100px' > ",
+        )
        
     def __str__(self):
         return f"title: {self.title}, text: {self.text}"
